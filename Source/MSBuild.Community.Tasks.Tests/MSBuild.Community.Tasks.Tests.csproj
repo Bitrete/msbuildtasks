@@ -72,6 +72,7 @@
     <Compile Include="GacUtilTest.cs" />
     <Compile Include="Git\GitBranchTest.cs" />
     <Compile Include="Git\GitVersionTest.cs" />
+    <Compile Include="Git\SemanticVersionGitDescribeExtractorTest.cs" />
     <Compile Include="IIS\WebDirectoryScriptMapTest.cs" />
     <Compile Include="IIS\WebDirectorySettingTest.cs" />
     <Compile Include="ILMerge\ILMergeTest.cs" />

@@ -115,7 +115,9 @@
     <Compile Include="Fusion\NativeMethods.cs" />
     <Compile Include="Git\GitBranch.cs" />
     <Compile Include="Git\GitClient.cs" />
+    <Compile Include="Git\SemanticVersionGitDescribe.cs" />
     <Compile Include="Git\GitVersion.cs" />
+    <Compile Include="Git\SemanticVersionGitDescribeExtractor.cs" />
     <Compile Include="HtmlHelp\ChmCompiler.cs" />
     <Compile Include="HtmlHelp\HxCompiler.cs" />
     <Compile Include="InnoSetup.cs" />
