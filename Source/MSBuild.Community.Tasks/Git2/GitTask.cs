@@ -1,9 +1,5 @@
 ﻿using LibGit2Sharp;
 using Microsoft.Build.Utilities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace MSBuild.Community.Tasks.Git2
 {

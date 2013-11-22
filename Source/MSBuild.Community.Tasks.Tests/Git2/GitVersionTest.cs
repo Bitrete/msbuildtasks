@@ -1,9 +1,5 @@
 ﻿using MSBuild.Community.Tasks.Git2;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace MSBuild.Community.Tasks.Tests.Git2
 {

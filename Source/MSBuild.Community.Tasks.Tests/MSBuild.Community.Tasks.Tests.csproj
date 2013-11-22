@@ -74,6 +74,7 @@
     <Compile Include="Fusion\FusionWrapperTest.cs" />
     <Compile Include="FxCopTest.cs" />
     <Compile Include="GacUtilTest.cs" />
+    <Compile Include="Git2\GitBranchTest.cs" />
     <Compile Include="Git2\GitVersionTest.cs" />
     <Compile Include="Git\GitBranchTest.cs" />
     <Compile Include="Git\GitVersionTest.cs" />
