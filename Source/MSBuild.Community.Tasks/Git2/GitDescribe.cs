@@ -20,6 +20,12 @@ namespace MSBuild.Community.Tasks.Git2
         public int CommitCount { get; private set; }
 
         /// <summary>
+        /// Hash of the most recent tagged commit
+        /// </summary>
+        [Output]
+        public string TaggedCommitHash { get; private set; }
+
+        /// <summary>
         /// Hash of HEAD commit
         /// </summary>
         [Output]
@@ -45,6 +51,7 @@ namespace MSBuild.Community.Tasks.Git2
         protected override bool ExecuteCommand(Repository repository)
         {
             Commit headCommit = repository.Commits.First();
+            CommitHash = headCommit.Sha;
 
             Dirty = repository.Diff.Compare(headCommit.Tree, DiffTargets.WorkingDirectory).Patch.Length > 0;
 
@@ -52,17 +59,13 @@ namespace MSBuild.Community.Tasks.Git2
             if (headCommit == null)
                 throw new InvalidOperationException("Could not find HEAD commit");
 
-            List<Commit> leftParents = new List<Commit>();
-            FillWithLeftParents(leftParents, headCommit);
-
-
             Dictionary<Commit, Tag> taggedCommits = new Dictionary<Commit, Tag>();
-            foreach (Commit commit in leftParents)
+            foreach (Commit commit in repository.Commits)
                 foreach (Tag tag in repository.Tags)
                     if (tag.Target == commit)
                         taggedCommits.Add(commit, tag);
 
-            Dictionary<Commit, int> commitsDistance = CalculateDistance(leftParents, taggedCommits);
+            Dictionary<Commit, int> commitsDistance = CalculateDistance(repository.Commits.ToList(), taggedCommits);
 
             Commit recentTaggedCommit = commitsDistance.OrderBy(cd => cd.Value).First().Key;
 
@@ -70,7 +73,7 @@ namespace MSBuild.Community.Tasks.Git2
 
             Tag = recentTag.Name;
             CommitCount = commitsDistance[recentTaggedCommit];
-            CommitHash = recentTaggedCommit.Sha;
+            TaggedCommitHash = recentTaggedCommit.Sha;
 
             return true;
         }
@@ -94,14 +97,6 @@ namespace MSBuild.Community.Tasks.Git2
             }
 
             return result;
-        }
-
-        private void FillWithLeftParents(List<Commit> parents, Commit commit)
-        {
-            parents.Add(commit);
-            Commit firstParent = commit.Parents.FirstOrDefault();
-            if (firstParent != null)
-                FillWithLeftParents(parents, firstParent);
         }
     }
 }

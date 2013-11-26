@@ -28,24 +28,26 @@ namespace MSBuild.Community.Tasks.Tests.Git2
         }
 
         [Test]
-        public void TestTag001()
+        public void TestTag005()
         {
             Assert.IsTrue(task.Execute());
-            Assert.AreEqual("v0.0.1", task.Tag);
+            Assert.AreEqual("v0.0.5", task.Tag);
             Assert.IsFalse(task.Dirty);
-            Assert.AreEqual("56a4945c4119ee09970fdd27be2e40444114dc3a", task.CommitHash);
-            Assert.AreEqual(5, task.CommitCount);
+            Assert.AreEqual("77c95ebb5565695348f674ee5fdd419af78807c9", task.CommitHash);
+            Assert.AreEqual("86ccf0b435176e1a1a939041b7dfe4824a7548e5", task.TaggedCommitHash);
+            Assert.AreEqual(3, task.CommitCount);
         }
 
         [Test]
-        public void TestTag010()
+        public void TestTag001()
         {
             CheckoutBranch("branch");
             Assert.IsTrue(task.Execute());
-            Assert.AreEqual("v0.1.0", task.Tag);
+            Assert.AreEqual("v0.0.1", task.Tag);
             Assert.IsFalse(task.Dirty);
             Assert.AreEqual("d85c67bab517fcb53ed4ca84e3f68dc51482afe7", task.CommitHash);
-            Assert.AreEqual(0, task.CommitCount);
+            Assert.AreEqual("56a4945c4119ee09970fdd27be2e40444114dc3a", task.TaggedCommitHash);
+            Assert.AreEqual(3, task.CommitCount);
         }
     }
 }
