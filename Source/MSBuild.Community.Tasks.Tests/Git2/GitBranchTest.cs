@@ -6,10 +6,8 @@ using System.Linq;
 namespace MSBuild.Community.Tasks.Tests.Git2
 {
     [TestFixture]
-    class GitBranchTest
+    class GitBranchTest : GitTestBase
     {
-        private const string TestRepositoryPath = @"C:\Temp\Repo1";
-
         private GitBranch task;
 
         [SetUp]
@@ -39,15 +37,6 @@ namespace MSBuild.Community.Tasks.Tests.Git2
             CheckoutBranch("branch");
             Assert.IsTrue(task.Execute());
             Assert.AreEqual("branch", task.Branch);
-        }
-
-        private void CheckoutBranch(string branchName)
-        {
-            using (var repository = new Repository(TestRepositoryPath))
-            {
-                var branch = repository.Branches.Single(br => br.Name.Equals(branchName));
-                branch.Checkout();
-            }
         }
     }
 }

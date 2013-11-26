@@ -13,7 +13,7 @@ namespace MSBuild.Community.Tasks.Git2
         /// Name of current branch
         /// </summary>
         [Output]
-        public string Branch { get; set; }
+        public string Branch { get; private set; }
         
         /// <summary>
         /// Task logic
