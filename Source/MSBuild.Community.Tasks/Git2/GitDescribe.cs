@@ -32,14 +32,21 @@ namespace MSBuild.Community.Tasks.Git2
         public string Tag { get; private set; }
 
         /// <summary>
+        /// Dirty flag, True if where is any changes in repository
+        /// </summary>
+        [Output]
+        public bool Dirty { get; private set; }
+
+        /// <summary>
         /// Task logic
         /// </summary>
         /// <param name="repository">Git repository object</param>
         /// <returns>True if was executed successfully, overwise false</returns>
         protected override bool ExecuteCommand(Repository repository)
         {
-
             Commit headCommit = repository.Commits.First();
+
+            Dirty = repository.Diff.Compare(headCommit.Tree, DiffTargets.WorkingDirectory).Patch.Length > 0;
 
             //TODO: Select better exception class
             if (headCommit == null)

@@ -32,6 +32,7 @@ namespace MSBuild.Community.Tasks.Tests.Git2
         {
             Assert.IsTrue(task.Execute());
             Assert.AreEqual("v0.0.1", task.Tag);
+            Assert.IsFalse(task.Dirty);
             Assert.AreEqual("56a4945c4119ee09970fdd27be2e40444114dc3a", task.CommitHash);
             Assert.AreEqual(5, task.CommitCount);
         }
@@ -42,6 +43,7 @@ namespace MSBuild.Community.Tasks.Tests.Git2
             CheckoutBranch("branch");
             Assert.IsTrue(task.Execute());
             Assert.AreEqual("v0.1.0", task.Tag);
+            Assert.IsFalse(task.Dirty);
             Assert.AreEqual("d85c67bab517fcb53ed4ca84e3f68dc51482afe7", task.CommitHash);
             Assert.AreEqual(0, task.CommitCount);
         }
