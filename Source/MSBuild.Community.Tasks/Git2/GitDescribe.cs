@@ -45,13 +45,17 @@ namespace MSBuild.Community.Tasks.Git2
             if (headCommit == null)
                 throw new InvalidOperationException("Could not find HEAD commit");
 
+            List<Commit> leftParents = new List<Commit>();
+            FillWithLeftParents(leftParents, headCommit);
+
+
             Dictionary<Commit, Tag> taggedCommits = new Dictionary<Commit, Tag>();
-            foreach (Commit commit in repository.Commits)
+            foreach (Commit commit in leftParents)
                 foreach (Tag tag in repository.Tags)
                     if (tag.Target == commit)
                         taggedCommits.Add(commit, tag);
 
-            Dictionary<Commit, int> commitsDistance = CalculateDistance(headCommit, taggedCommits);
+            Dictionary<Commit, int> commitsDistance = CalculateDistance(leftParents, taggedCommits);
 
             Commit recentTaggedCommit = commitsDistance.OrderBy(cd => cd.Value).First().Key;
 
@@ -64,18 +68,12 @@ namespace MSBuild.Community.Tasks.Git2
             return true;
         }
 
-        private Dictionary<Commit, int> CalculateDistance(Commit headCommit, Dictionary<Commit, Tag> taggedCommits)
+        private Dictionary<Commit, int> CalculateDistance(List<Commit> leftParents, Dictionary<Commit, Tag> taggedCommits)
         {
             Dictionary<Commit, int> result = new Dictionary<Commit, int>();
 
-            List<Commit> leftParents = new List<Commit>();
-            SelectFirstParent(leftParents, headCommit);
-
             foreach (Commit taggedCommit in taggedCommits.Keys)
             {
-                if (!leftParents.Contains(taggedCommit))
-                    continue;
-
                 int distance = 0;
                 foreach (Commit parent in leftParents)
                 {
@@ -91,12 +89,12 @@ namespace MSBuild.Community.Tasks.Git2
             return result;
         }
 
-        private void SelectFirstParent(List<Commit> parents, Commit commit)
+        private void FillWithLeftParents(List<Commit> parents, Commit commit)
         {
             parents.Add(commit);
             Commit firstParent = commit.Parents.FirstOrDefault();
             if (firstParent != null)
-                SelectFirstParent(parents, firstParent);
+                FillWithLeftParents(parents, firstParent);
         }
     }
 }
