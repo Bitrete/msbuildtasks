@@ -11,17 +11,19 @@ namespace MSBuild.Community.Tasks.Tests.Git2
         private GitBranch task;
 
         [SetUp]
-        public void SetUp()
+        public new void SetUp()
         {
+            base.SetUp();
+
             task = new GitBranch();
             task.BuildEngine = new MockBuild();
-            task.RepositoryPath = TestRepositoryPath;
+            task.RepositoryPath = TagFreeRepository;
         }
 
         [TearDown]
-        public void TearDown()
+        public new void TearDown()
         {
-            CheckoutBranch("master");
+            base.TearDown();
         }
 
         [Test]
@@ -34,7 +36,7 @@ namespace MSBuild.Community.Tasks.Tests.Git2
         [Test]
         public void TestBranchBranch()
         {
-            CheckoutBranch("branch");
+            CheckoutBranch(TagFreeRepository, "branch");
             Assert.IsTrue(task.Execute());
             Assert.AreEqual("branch", task.Branch);
         }

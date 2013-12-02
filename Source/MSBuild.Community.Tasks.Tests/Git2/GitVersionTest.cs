@@ -4,16 +4,24 @@ using NUnit.Framework;
 namespace MSBuild.Community.Tasks.Tests.Git2
 {
     [TestFixture]
-    class GitVersionTest
+    class GitVersionTest : GitTestBase
     {
         private GitVersion task;
 
         [SetUp]
-        public void SetUp()
+        public new void SetUp()
         {
+            base.SetUp();
+
             task = new GitVersion();
             task.BuildEngine = new MockBuild();
-            task.RepositoryPath = @"C:\Temp\Repo1\";
+            task.RepositoryPath = TagFreeRepository;
+        }
+
+        [TearDown]
+        public new void TearDown()
+        {
+            base.TearDown();
         }
 
         [Test]

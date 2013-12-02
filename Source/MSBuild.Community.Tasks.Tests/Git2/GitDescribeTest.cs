@@ -13,41 +13,124 @@ namespace MSBuild.Community.Tasks.Tests.Git2
         private GitDescribe task;
 
         [SetUp]
-        public void SetUp()
+        public new void SetUp()
         {
-            CheckoutBranch("master");
+            base.SetUp();
             task = new GitDescribe();
-            task.RepositoryPath = TestRepositoryPath;
             task.BuildEngine = new MockBuild();
         }
 
         [TearDown]
-        public void TearDown()
+        public new void TearDown()
         {
-            CheckoutBranch("master");
+            base.TearDown();
         }
 
         [Test]
-        public void TestTag005()
+        public void TestTagOnLastCommit()
         {
+            task.RepositoryPath = LastCommitTaggedRepository;
             Assert.IsTrue(task.Execute());
-            Assert.AreEqual("v0.0.5", task.Tag);
+            Assert.AreEqual("v1.0.0", task.Tag);
             Assert.IsFalse(task.Dirty);
+            Assert.AreEqual("77c95ebb5565695348f674ee5fdd419af78807c9", task.CommitHash);
+            Assert.AreEqual("77c95ebb5565695348f674ee5fdd419af78807c9", task.TaggedCommitHash);
+            Assert.AreEqual(0, task.CommitCount);
+            Assert.AreEqual("v1.0.0-0-g77c95eb", task.Description);
+        }
+
+        [Test]
+        public void TestTagOnLastCommitDirty()
+        {
+            task.RepositoryPath = LastCommitTaggedDirtyRepository;
+            task.DirtyMark = "dev";
+            Assert.IsTrue(task.Execute());
+            Assert.AreEqual("v1.0.0", task.Tag);
+            Assert.IsTrue(task.Dirty);
+            Assert.AreEqual("77c95ebb5565695348f674ee5fdd419af78807c9", task.CommitHash);
+            Assert.AreEqual("77c95ebb5565695348f674ee5fdd419af78807c9", task.TaggedCommitHash);
+            Assert.AreEqual(0, task.CommitCount);
+            Assert.AreEqual("v1.0.0-0-g77c95eb-dev", task.Description);
+        }
+
+        [Test]
+        public void TestTagFree()
+        {
+            task.RepositoryPath = TagFreeRepository;
+            Assert.IsTrue(task.Execute());
+            Assert.AreEqual("", task.Tag);
+            Assert.IsFalse(task.Dirty);
+            Assert.AreEqual("77c95ebb5565695348f674ee5fdd419af78807c9", task.CommitHash);
+            Assert.AreEqual("", task.TaggedCommitHash);
+            Assert.AreEqual(0, task.CommitCount);
+            Assert.AreEqual("77c95eb", task.Description);
+        }
+
+        [Test]
+        public void TestTagFreeDirty()
+        {
+            task.RepositoryPath = TagFreeDirtyRepository;
+            Assert.IsTrue(task.Execute());
+            Assert.AreEqual("", task.Tag);
+            Assert.IsTrue(task.Dirty);
+            Assert.AreEqual("77c95ebb5565695348f674ee5fdd419af78807c9", task.CommitHash);
+            Assert.AreEqual("", task.TaggedCommitHash);
+            Assert.AreEqual(0, task.CommitCount);
+            Assert.AreEqual("77c95eb-dirty", task.Description);
+        }
+
+        [Test]
+        public void TestTagOnMaster()
+        {
+            task.RepositoryPath = TagOnMasterRepository;
+            Assert.IsTrue(task.Execute());
+            Assert.IsFalse(task.Dirty);
+            Assert.AreEqual("v0.5.0", task.Tag);
             Assert.AreEqual("77c95ebb5565695348f674ee5fdd419af78807c9", task.CommitHash);
             Assert.AreEqual("86ccf0b435176e1a1a939041b7dfe4824a7548e5", task.TaggedCommitHash);
             Assert.AreEqual(3, task.CommitCount);
+            Assert.AreEqual("v0.5.0-3-g77c95eb", task.Description);
         }
 
         [Test]
-        public void TestTag001()
+        public void TestTagOnBranch1()
         {
-            CheckoutBranch("branch");
+            CheckoutBranch(TagOnBranchRepository, "branch");
+            task.RepositoryPath = TagOnBranchRepository;
             Assert.IsTrue(task.Execute());
-            Assert.AreEqual("v0.0.1", task.Tag);
             Assert.IsFalse(task.Dirty);
+            Assert.AreEqual("v0.6.0", task.Tag);
             Assert.AreEqual("d85c67bab517fcb53ed4ca84e3f68dc51482afe7", task.CommitHash);
-            Assert.AreEqual("56a4945c4119ee09970fdd27be2e40444114dc3a", task.TaggedCommitHash);
+            Assert.AreEqual("d85c67bab517fcb53ed4ca84e3f68dc51482afe7", task.TaggedCommitHash);
+            Assert.AreEqual(0, task.CommitCount);
+            Assert.AreEqual("v0.6.0-0-gd85c67b", task.Description);
+        }
+
+        [Test]
+        public void TestTagOnBranch2()
+        {
+            CheckoutBranch(TagOnBranchRepository, "master");
+            task.RepositoryPath = TagOnBranchRepository;
+            Assert.IsTrue(task.Execute());
+            Assert.IsFalse(task.Dirty);
+            Assert.AreEqual("v0.6.0", task.Tag);
+            Assert.AreEqual("77c95ebb5565695348f674ee5fdd419af78807c9", task.CommitHash);
+            Assert.AreEqual("d85c67bab517fcb53ed4ca84e3f68dc51482afe7", task.TaggedCommitHash);
             Assert.AreEqual(3, task.CommitCount);
+            Assert.AreEqual("v0.6.0-3-g77c95eb", task.Description);
+        }
+
+        [Test]
+        public void TestEarlyTag()
+        {
+            task.RepositoryPath = EarlyTagRepository;
+            Assert.IsTrue(task.Execute());
+            Assert.IsFalse(task.Dirty);
+            Assert.AreEqual("v0.2.0", task.Tag);
+            Assert.AreEqual("77c95ebb5565695348f674ee5fdd419af78807c9", task.CommitHash);
+            Assert.AreEqual("25f17f14afde4a412756d65e1480374e6e46b285", task.TaggedCommitHash);
+            Assert.AreEqual(5, task.CommitCount);
+            Assert.AreEqual("v0.2.0-5-g77c95eb", task.Description);
         }
     }
 }

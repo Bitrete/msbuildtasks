@@ -1,0 +1,56 @@
+0000000000000000000000000000000000000000 56a4945c4119ee09970fdd27be2e40444114dc3a Alexey Kiselev <kiselev@bitrete.ru> 1385041904 +0400	commit (initial): First commit on master
+56a4945c4119ee09970fdd27be2e40444114dc3a 25f17f14afde4a412756d65e1480374e6e46b285 Alexey Kiselev <kiselev@bitrete.ru> 1385041938 +0400	commit: Second commit on master
+25f17f14afde4a412756d65e1480374e6e46b285 8a923ccbbd4d98aa9338ac3fb0a69467075637fc Alexey Kiselev <kiselev@bitrete.ru> 1385042033 +0400	commit: Third commit on master
+8a923ccbbd4d98aa9338ac3fb0a69467075637fc 86ccf0b435176e1a1a939041b7dfe4824a7548e5 Alexey Kiselev <kiselev@bitrete.ru> 1385042105 +0400	commit: Fourth commit on master
+86ccf0b435176e1a1a939041b7dfe4824a7548e5 8a923ccbbd4d98aa9338ac3fb0a69467075637fc Alexey Kiselev <kiselev@bitrete.ru> 1385042143 +0400	checkout: moving from master to branch
+8a923ccbbd4d98aa9338ac3fb0a69467075637fc d85c67bab517fcb53ed4ca84e3f68dc51482afe7 Alexey Kiselev <kiselev@bitrete.ru> 1385042175 +0400	commit: First commit on branch
+d85c67bab517fcb53ed4ca84e3f68dc51482afe7 86ccf0b435176e1a1a939041b7dfe4824a7548e5 Alexey Kiselev <kiselev@bitrete.ru> 1385042197 +0400	checkout: moving from branch to master
+86ccf0b435176e1a1a939041b7dfe4824a7548e5 8c1541031cf33ff80fc014a3b7b2b9d0ead42bf4 Alexey Kiselev <kiselev@bitrete.ru> 1385042203 +0400	merge branch: Merge made by the 'recursive' strategy.
+8c1541031cf33ff80fc014a3b7b2b9d0ead42bf4 77c95ebb5565695348f674ee5fdd419af78807c9 Alexey Kiselev <kiselev@bitrete.ru> 1385042247 +0400	commit: Fifth commit on master
+77c95ebb5565695348f674ee5fdd419af78807c9 d85c67bab517fcb53ed4ca84e3f68dc51482afe7 Alexey Kiselev <kiselev@bitrete.ru> 1385047840 +0400	checkout: moving from master to branch
+d85c67bab517fcb53ed4ca84e3f68dc51482afe7 77c95ebb5565695348f674ee5fdd419af78807c9 Alexey Kiselev <kiselev@bitrete.ru> 1385106130 +0400	checkout: moving from branch to master
+77c95ebb5565695348f674ee5fdd419af78807c9 d85c67bab517fcb53ed4ca84e3f68dc51482afe7 Alexey Kiselev <kiselev@bitrete.ru> 1385109788 +0400	checkout: moving from master to branch
+d85c67bab517fcb53ed4ca84e3f68dc51482afe7 77c95ebb5565695348f674ee5fdd419af78807c9 Alexey Kiselev <kiselev@bitrete.ru> 1385109788 +0400	checkout: moving from branch to master
+77c95ebb5565695348f674ee5fdd419af78807c9 d85c67bab517fcb53ed4ca84e3f68dc51482afe7 Alexey Kiselev <kiselev@bitrete.ru> 1385109888 +0400	checkout: moving from master to branch
+d85c67bab517fcb53ed4ca84e3f68dc51482afe7 77c95ebb5565695348f674ee5fdd419af78807c9 Alexey Kiselev <kiselev@bitrete.ru> 1385109888 +0400	checkout: moving from branch to master
+77c95ebb5565695348f674ee5fdd419af78807c9 d85c67bab517fcb53ed4ca84e3f68dc51482afe7 Alexey Kiselev <kiselev@bitrete.ru> 1385142720 +0400	checkout: moving from master to branch
+d85c67bab517fcb53ed4ca84e3f68dc51482afe7 77c95ebb5565695348f674ee5fdd419af78807c9 Alexey Kiselev <kiselev@bitrete.ru> 1385142845 +0400	checkout: moving from branch to master
+77c95ebb5565695348f674ee5fdd419af78807c9 d85c67bab517fcb53ed4ca84e3f68dc51482afe7 Alexey Kiselev <kiselev@bitrete.ru> 1385142845 +0400	checkout: moving from master to branch
+d85c67bab517fcb53ed4ca84e3f68dc51482afe7 77c95ebb5565695348f674ee5fdd419af78807c9 Alexey Kiselev <kiselev@bitrete.ru> 1385142845 +0400	checkout: moving from branch to master
+77c95ebb5565695348f674ee5fdd419af78807c9 d85c67bab517fcb53ed4ca84e3f68dc51482afe7 Alexey Kiselev <kiselev@bitrete.ru> 1385143394 +0400	checkout: moving from master to branch
+d85c67bab517fcb53ed4ca84e3f68dc51482afe7 77c95ebb5565695348f674ee5fdd419af78807c9 Alexey Kiselev <kiselev@bitrete.ru> 1385143394 +0400	checkout: moving from branch to master
+77c95ebb5565695348f674ee5fdd419af78807c9 d85c67bab517fcb53ed4ca84e3f68dc51482afe7 Alexey Kiselev <kiselev@bitrete.ru> 1385145150 +0400	checkout: moving from master to branch
+d85c67bab517fcb53ed4ca84e3f68dc51482afe7 77c95ebb5565695348f674ee5fdd419af78807c9 Alexey Kiselev <kiselev@bitrete.ru> 1385145244 +0400	checkout: moving from branch to master
+77c95ebb5565695348f674ee5fdd419af78807c9 d85c67bab517fcb53ed4ca84e3f68dc51482afe7 Alexey Kiselev <kiselev@bitrete.ru> 1385145445 +0400	checkout: moving from master to branch
+d85c67bab517fcb53ed4ca84e3f68dc51482afe7 77c95ebb5565695348f674ee5fdd419af78807c9 Alexey Kiselev <kiselev@bitrete.ru> 1385145551 +0400	checkout: moving from branch to master
+77c95ebb5565695348f674ee5fdd419af78807c9 d85c67bab517fcb53ed4ca84e3f68dc51482afe7 Alexey Kiselev <kiselev@bitrete.ru> 1385145670 +0400	checkout: moving from master to branch
+d85c67bab517fcb53ed4ca84e3f68dc51482afe7 77c95ebb5565695348f674ee5fdd419af78807c9 Alexey Kiselev <kiselev@bitrete.ru> 1385145733 +0400	checkout: moving from branch to master
+77c95ebb5565695348f674ee5fdd419af78807c9 d85c67bab517fcb53ed4ca84e3f68dc51482afe7 Alexey Kiselev <kiselev@bitrete.ru> 1385483851 +0400	checkout: moving from master to branch
+d85c67bab517fcb53ed4ca84e3f68dc51482afe7 77c95ebb5565695348f674ee5fdd419af78807c9 Alexey Kiselev <kiselev@bitrete.ru> 1385483851 +0400	checkout: moving from branch to master
+77c95ebb5565695348f674ee5fdd419af78807c9 d85c67bab517fcb53ed4ca84e3f68dc51482afe7 Alexey Kiselev <kiselev@bitrete.ru> 1385483894 +0400	checkout: moving from master to branch
+d85c67bab517fcb53ed4ca84e3f68dc51482afe7 77c95ebb5565695348f674ee5fdd419af78807c9 Alexey Kiselev <kiselev@bitrete.ru> 1385484140 +0400	checkout: moving from branch to master
+77c95ebb5565695348f674ee5fdd419af78807c9 d85c67bab517fcb53ed4ca84e3f68dc51482afe7 Alexey Kiselev <kiselev@bitrete.ru> 1385484140 +0400	checkout: moving from master to branch
+d85c67bab517fcb53ed4ca84e3f68dc51482afe7 77c95ebb5565695348f674ee5fdd419af78807c9 Alexey Kiselev <kiselev@bitrete.ru> 1385484141 +0400	checkout: moving from branch to master
+77c95ebb5565695348f674ee5fdd419af78807c9 d85c67bab517fcb53ed4ca84e3f68dc51482afe7 Alexey Kiselev <kiselev@bitrete.ru> 1385484155 +0400	checkout: moving from master to branch
+d85c67bab517fcb53ed4ca84e3f68dc51482afe7 77c95ebb5565695348f674ee5fdd419af78807c9 Alexey Kiselev <kiselev@bitrete.ru> 1385484155 +0400	checkout: moving from branch to master
+77c95ebb5565695348f674ee5fdd419af78807c9 d85c67bab517fcb53ed4ca84e3f68dc51482afe7 Alexey Kiselev <kiselev@bitrete.ru> 1385485278 +0400	checkout: moving from master to branch
+d85c67bab517fcb53ed4ca84e3f68dc51482afe7 77c95ebb5565695348f674ee5fdd419af78807c9 Alexey Kiselev <kiselev@bitrete.ru> 1385485278 +0400	checkout: moving from branch to master
+77c95ebb5565695348f674ee5fdd419af78807c9 d85c67bab517fcb53ed4ca84e3f68dc51482afe7 Alexey Kiselev <kiselev@bitrete.ru> 1385485294 +0400	checkout: moving from master to branch
+d85c67bab517fcb53ed4ca84e3f68dc51482afe7 77c95ebb5565695348f674ee5fdd419af78807c9 Alexey Kiselev <kiselev@bitrete.ru> 1385485294 +0400	checkout: moving from branch to master
+77c95ebb5565695348f674ee5fdd419af78807c9 d85c67bab517fcb53ed4ca84e3f68dc51482afe7 Alexey Kiselev <kiselev@bitrete.ru> 1385487624 +0400	checkout: moving from master to branch
+d85c67bab517fcb53ed4ca84e3f68dc51482afe7 77c95ebb5565695348f674ee5fdd419af78807c9 Alexey Kiselev <kiselev@bitrete.ru> 1385487624 +0400	checkout: moving from branch to master
+77c95ebb5565695348f674ee5fdd419af78807c9 d85c67bab517fcb53ed4ca84e3f68dc51482afe7 Alexey Kiselev <kiselev@bitrete.ru> 1385487746 +0400	checkout: moving from master to branch
+d85c67bab517fcb53ed4ca84e3f68dc51482afe7 77c95ebb5565695348f674ee5fdd419af78807c9 Alexey Kiselev <kiselev@bitrete.ru> 1385487746 +0400	checkout: moving from branch to master
+77c95ebb5565695348f674ee5fdd419af78807c9 d85c67bab517fcb53ed4ca84e3f68dc51482afe7 Alexey Kiselev <kiselev@bitrete.ru> 1385487785 +0400	checkout: moving from master to branch
+d85c67bab517fcb53ed4ca84e3f68dc51482afe7 77c95ebb5565695348f674ee5fdd419af78807c9 Alexey Kiselev <kiselev@bitrete.ru> 1385487785 +0400	checkout: moving from branch to master
+77c95ebb5565695348f674ee5fdd419af78807c9 d85c67bab517fcb53ed4ca84e3f68dc51482afe7 Alexey Kiselev <kiselev@bitrete.ru> 1385487865 +0400	checkout: moving from master to branch
+d85c67bab517fcb53ed4ca84e3f68dc51482afe7 77c95ebb5565695348f674ee5fdd419af78807c9 Alexey Kiselev <kiselev@bitrete.ru> 1385487865 +0400	checkout: moving from branch to master
+77c95ebb5565695348f674ee5fdd419af78807c9 d85c67bab517fcb53ed4ca84e3f68dc51482afe7 Alexey Kiselev <kiselev@bitrete.ru> 1385488721 +0400	checkout: moving from master to branch
+d85c67bab517fcb53ed4ca84e3f68dc51482afe7 77c95ebb5565695348f674ee5fdd419af78807c9 Alexey Kiselev <kiselev@bitrete.ru> 1385488781 +0400	checkout: moving from branch to master
+77c95ebb5565695348f674ee5fdd419af78807c9 d85c67bab517fcb53ed4ca84e3f68dc51482afe7 Alexey Kiselev <kiselev@bitrete.ru> 1385489088 +0400	checkout: moving from master to branch
+d85c67bab517fcb53ed4ca84e3f68dc51482afe7 77c95ebb5565695348f674ee5fdd419af78807c9 Alexey Kiselev <kiselev@bitrete.ru> 1385489088 +0400	checkout: moving from branch to master
+77c95ebb5565695348f674ee5fdd419af78807c9 d85c67bab517fcb53ed4ca84e3f68dc51482afe7 Alexey Kiselev <kiselev@bitrete.ru> 1385489162 +0400	checkout: moving from master to branch
+d85c67bab517fcb53ed4ca84e3f68dc51482afe7 77c95ebb5565695348f674ee5fdd419af78807c9 Alexey Kiselev <kiselev@bitrete.ru> 1385489162 +0400	checkout: moving from branch to master
+77c95ebb5565695348f674ee5fdd419af78807c9 d85c67bab517fcb53ed4ca84e3f68dc51482afe7 Alexey Kiselev <kiselev@bitrete.ru> 1385489316 +0400	checkout: moving from master to branch
+d85c67bab517fcb53ed4ca84e3f68dc51482afe7 77c95ebb5565695348f674ee5fdd419af78807c9 Alexey Kiselev <kiselev@bitrete.ru> 1385489316 +0400	checkout: moving from branch to master
+77c95ebb5565695348f674ee5fdd419af78807c9 77c95ebb5565695348f674ee5fdd419af78807c9 Alexey Kiselev <kiselev@bitrete.ru> 1385984561 +0400	checkout: moving from master to master

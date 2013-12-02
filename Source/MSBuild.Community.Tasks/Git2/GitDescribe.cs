@@ -13,6 +13,27 @@ namespace MSBuild.Community.Tasks.Git2
     /// </summary>
     public class GitDescribe : GitTask
     {
+        private const string DefaultDirtyMark = "dirty";
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        public GitDescribe()
+        {
+            DirtyMark = DefaultDirtyMark;
+            CommitCount = 0;
+            TaggedCommitHash = string.Empty;
+            CommitHash = string.Empty;
+            Tag = string.Empty;
+            Dirty = false;
+            Description = string.Empty;
+        }
+
+        /// <summary>
+        /// Set or get mark string for dirty (changed) working copy
+        /// </summary>
+        public string DirtyMark { get; set; }
+
         /// <summary>
         /// Commits count since recent tag
         /// </summary>
@@ -32,6 +53,18 @@ namespace MSBuild.Community.Tasks.Git2
         public string CommitHash { get; private set; }
 
         /// <summary>
+        /// Short representation of HEAD commit hash
+        /// </summary>
+        [Output]
+        public string ShortCommitHash
+        {
+            get
+            {
+                return CommitHash.Substring(0, 7);
+            }
+        }
+
+        /// <summary>
         /// The most recent tag
         /// </summary>
         [Output]
@@ -44,6 +77,12 @@ namespace MSBuild.Community.Tasks.Git2
         public bool Dirty { get; private set; }
 
         /// <summary>
+        /// Outputs description as in git describe command
+        /// </summary>
+        [Output]
+        public string Description { get; private set; }
+
+        /// <summary>
         /// Task logic
         /// </summary>
         /// <param name="repository">Git repository object</param>
@@ -53,29 +92,56 @@ namespace MSBuild.Community.Tasks.Git2
             Commit headCommit = repository.Commits.First();
             CommitHash = headCommit.Sha;
 
-            Dirty = repository.Diff.Compare(headCommit.Tree, DiffTargets.WorkingDirectory).Patch.Length > 0;
+            Dirty = IsModified(repository);
 
             //TODO: Select better exception class
             if (headCommit == null)
                 throw new InvalidOperationException("Could not find HEAD commit");
 
-            Dictionary<Commit, Tag> taggedCommits = new Dictionary<Commit, Tag>();
-            foreach (Commit commit in repository.Commits)
-                foreach (Tag tag in repository.Tags)
-                    if (tag.Target == commit)
-                        taggedCommits.Add(commit, tag);
+            if (repository.Tags.Count() > 0)
+            {
+                Dictionary<Commit, Tag> taggedCommits = new Dictionary<Commit, Tag>();
+                foreach (Commit commit in repository.Commits)
+                    foreach (Tag tag in repository.Tags)
+                        if (tag.Target == commit)
+                            taggedCommits.Add(commit, tag);
 
-            Dictionary<Commit, int> commitsDistance = CalculateDistance(repository.Commits.ToList(), taggedCommits);
+                Dictionary<Commit, int> commitsDistance = CalculateDistance(repository.Commits.ToList(), taggedCommits);
 
-            Commit recentTaggedCommit = commitsDistance.OrderBy(cd => cd.Value).First().Key;
+                Commit recentTaggedCommit = commitsDistance.OrderBy(cd => cd.Value).First().Key;
 
-            Tag recentTag = taggedCommits[recentTaggedCommit];
+                Tag recentTag = taggedCommits[recentTaggedCommit];
 
-            Tag = recentTag.Name;
-            CommitCount = commitsDistance[recentTaggedCommit];
-            TaggedCommitHash = recentTaggedCommit.Sha;
+                Tag = recentTag.Name;
+                CommitCount = commitsDistance[recentTaggedCommit];
+                TaggedCommitHash = recentTaggedCommit.Sha;
+            }
+
+            Description = BuildDescription();
 
             return true;
+        }
+
+        private string BuildDescription()
+        {
+            StringBuilder sb = new StringBuilder();
+            if (!string.Empty.Equals(Tag))
+            {
+                sb.Append(Tag);
+                sb.Append("-");
+                sb.Append(CommitCount);
+                sb.Append("-");
+                sb.Append("g");
+            }
+            sb.Append(ShortCommitHash);
+
+            if (Dirty)
+            {
+                sb.Append("-");
+                sb.Append(DirtyMark);
+            }
+
+            return sb.ToString();
         }
 
         private Dictionary<Commit, int> CalculateDistance(List<Commit> leftParents, Dictionary<Commit, Tag> taggedCommits)
@@ -97,6 +163,18 @@ namespace MSBuild.Community.Tasks.Git2
             }
 
             return result;
+        }
+
+        private bool IsModified(Repository repository)
+        {
+            foreach (var item in repository.Index.RetrieveStatus())
+            {
+                var state = item.State;
+                if (state != FileStatus.Unaltered)
+                    return true;
+            }
+
+            return false;
         }
     }
 }
