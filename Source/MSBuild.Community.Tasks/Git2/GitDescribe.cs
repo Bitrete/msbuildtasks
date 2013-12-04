@@ -113,24 +113,6 @@ namespace MSBuild.Community.Tasks.Git2
                 Tag = recentTag.Name;
                 CommitCount = GetCommitsCountBetweenHeadAndCommit(repository, recentTag.Target);
                 TaggedCommitHash = recentTag.Target.Sha;
-
-
-
-                //Dictionary<Commit, Tag> taggedCommits = new Dictionary<Commit, Tag>();
-                //foreach (Commit commit in repository.Commits)
-                //    foreach (Tag tag in repository.Tags)
-                //        if (tag.Target == commit)
-                //            taggedCommits.Add(commit, tag);
-
-                //Dictionary<Commit, int> commitsDistance = CalculateDistance(repository.Commits.ToList(), taggedCommits);
-
-                //Commit recentTaggedCommit = commitsDistance.OrderBy(cd => cd.Value).First().Key;
-
-                //Tag recentTag = taggedCommits[recentTaggedCommit];
-
-                //Tag = recentTag.Name;
-                //CommitCount = commitsDistance[recentTaggedCommit];
-                //TaggedCommitHash = recentTaggedCommit.Sha;
             }
 
             Description = BuildDescription();
@@ -145,27 +127,6 @@ namespace MSBuild.Community.Tasks.Git2
             filter.Until = target;
 
             return repository.Commits.QueryBy(filter).Count();
-        }
-
-        private Dictionary<Commit, int> CalculateDistance(List<Commit> leftParents, Dictionary<Commit, Tag> taggedCommits)
-        {
-            Dictionary<Commit, int> result = new Dictionary<Commit, int>();
-
-            foreach (Commit taggedCommit in taggedCommits.Keys)
-            {
-                int distance = 0;
-                foreach (Commit parent in leftParents)
-                {
-                    if (parent == taggedCommit)
-                    {
-                        result.Add(parent, distance);
-                        break;
-                    }
-                    distance++;
-                }
-            }
-
-            return result;
         }
 
         private int GetTagDistanceFromHead(Repository repository, Tag tag)

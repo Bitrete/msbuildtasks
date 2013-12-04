@@ -118,6 +118,7 @@
     <Compile Include="Fusion\NativeMethods.cs" />
     <Compile Include="Git2\GitBranch.cs" />
     <Compile Include="Git2\GitDescribe.cs" />
+    <Compile Include="Git2\GitSemanticVersion.cs" />
     <Compile Include="Git2\GitTask.cs" />
     <Compile Include="Git2\GitVersion.cs" />
     <Compile Include="Git\GitBranch.cs" />
