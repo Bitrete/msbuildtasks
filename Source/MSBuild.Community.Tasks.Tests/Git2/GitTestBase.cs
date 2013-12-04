@@ -15,7 +15,7 @@ namespace MSBuild.Community.Tasks.Tests.Git2
         private const string LastCommitTaggedDirtyRepositoryName = "last-commit-tagged-dirty-repo";
         private const string TagOnBranchRepositoryName = "tag-on-branch-repo";
         private const string TagOnMasterRepositoryName = "tag-on-master-repo";
-        private const string AlphaTagRepositoryName = "alphs-tag-repo";
+        private const string AlphaTagRepositoryName = "alpha-tag-repo";
         private const string EarlyTagRepositoryName = "early-tag-repo";
 
         public static DirectoryInfo TestResources { get; private set; }

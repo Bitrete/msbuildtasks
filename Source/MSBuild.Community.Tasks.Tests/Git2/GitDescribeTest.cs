@@ -132,5 +132,18 @@ namespace MSBuild.Community.Tasks.Tests.Git2
             Assert.AreEqual(5, task.CommitCount);
             Assert.AreEqual("v0.2.0-5-g77c95eb", task.Description);
         }
+
+        [Test]
+        public void TestAlphaTag()
+        {
+            task.RepositoryPath = AlphaTagRepository;
+            Assert.IsTrue(task.Execute());
+            Assert.IsFalse(task.Dirty);
+            Assert.AreEqual("tag", task.Tag);
+            Assert.AreEqual("77c95ebb5565695348f674ee5fdd419af78807c9", task.CommitHash);
+            Assert.AreEqual("8c1541031cf33ff80fc014a3b7b2b9d0ead42bf4", task.TaggedCommitHash);
+            Assert.AreEqual(1, task.CommitCount);
+            Assert.AreEqual("tag-1-g77c95eb", task.Description);
+        }
     }
 }

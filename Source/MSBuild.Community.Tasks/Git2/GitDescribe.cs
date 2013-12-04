@@ -89,37 +89,97 @@ namespace MSBuild.Community.Tasks.Git2
         /// <returns>True if was executed successfully, overwise false</returns>
         protected override bool ExecuteCommand(Repository repository)
         {
-            Commit headCommit = repository.Commits.First();
-            CommitHash = headCommit.Sha;
-
-            Dirty = IsModified(repository);
-
-            //TODO: Select better exception class
+            Commit headCommit = repository.Head.Commits.First();
             if (headCommit == null)
-                throw new InvalidOperationException("Could not find HEAD commit");
+                throw new InvalidOperationException("Could not find HEAD commit"); //TODO: Select better exception class
+
+            CommitHash = headCommit.Sha;
+            Dirty = IsModified(repository);
 
             if (repository.Tags.Count() > 0)
             {
-                Dictionary<Commit, Tag> taggedCommits = new Dictionary<Commit, Tag>();
-                foreach (Commit commit in repository.Commits)
-                    foreach (Tag tag in repository.Tags)
-                        if (tag.Target == commit)
-                            taggedCommits.Add(commit, tag);
-
-                Dictionary<Commit, int> commitsDistance = CalculateDistance(repository.Commits.ToList(), taggedCommits);
-
-                Commit recentTaggedCommit = commitsDistance.OrderBy(cd => cd.Value).First().Key;
-
-                Tag recentTag = taggedCommits[recentTaggedCommit];
+                Tag recentTag = null;
+                int currentDistance = int.MaxValue;
+                foreach (Tag tag in repository.Tags)
+                {
+                    var distance = GetTagDistanceFromHead(repository, tag);
+                    if (distance < currentDistance)
+                    {
+                        currentDistance = distance;
+                        recentTag = tag;
+                    }
+                }
 
                 Tag = recentTag.Name;
-                CommitCount = commitsDistance[recentTaggedCommit];
-                TaggedCommitHash = recentTaggedCommit.Sha;
+                CommitCount = GetCommitsCountBetweenHeadAndCommit(repository, recentTag.Target);
+                TaggedCommitHash = recentTag.Target.Sha;
+
+
+
+                //Dictionary<Commit, Tag> taggedCommits = new Dictionary<Commit, Tag>();
+                //foreach (Commit commit in repository.Commits)
+                //    foreach (Tag tag in repository.Tags)
+                //        if (tag.Target == commit)
+                //            taggedCommits.Add(commit, tag);
+
+                //Dictionary<Commit, int> commitsDistance = CalculateDistance(repository.Commits.ToList(), taggedCommits);
+
+                //Commit recentTaggedCommit = commitsDistance.OrderBy(cd => cd.Value).First().Key;
+
+                //Tag recentTag = taggedCommits[recentTaggedCommit];
+
+                //Tag = recentTag.Name;
+                //CommitCount = commitsDistance[recentTaggedCommit];
+                //TaggedCommitHash = recentTaggedCommit.Sha;
             }
 
             Description = BuildDescription();
 
             return true;
+        }
+
+        private int GetCommitsCountBetweenHeadAndCommit(Repository repository, GitObject target)
+        {
+            var filter = new CommitFilter();
+            filter.Since = repository.Head.Commits.First();
+            filter.Until = target;
+
+            return repository.Commits.QueryBy(filter).Count();
+        }
+
+        private Dictionary<Commit, int> CalculateDistance(List<Commit> leftParents, Dictionary<Commit, Tag> taggedCommits)
+        {
+            Dictionary<Commit, int> result = new Dictionary<Commit, int>();
+
+            foreach (Commit taggedCommit in taggedCommits.Keys)
+            {
+                int distance = 0;
+                foreach (Commit parent in leftParents)
+                {
+                    if (parent == taggedCommit)
+                    {
+                        result.Add(parent, distance);
+                        break;
+                    }
+                    distance++;
+                }
+            }
+
+            return result;
+        }
+
+        private int GetTagDistanceFromHead(Repository repository, Tag tag)
+        {
+            int result = 0;
+            foreach (Commit commit in repository.Commits)
+            {
+                if (commit.Equals(tag.Target))
+                    break;
+
+                result++;
+            }
+
+            return result;
         }
 
         private string BuildDescription()
@@ -142,27 +202,6 @@ namespace MSBuild.Community.Tasks.Git2
             }
 
             return sb.ToString();
-        }
-
-        private Dictionary<Commit, int> CalculateDistance(List<Commit> leftParents, Dictionary<Commit, Tag> taggedCommits)
-        {
-            Dictionary<Commit, int> result = new Dictionary<Commit, int>();
-
-            foreach (Commit taggedCommit in taggedCommits.Keys)
-            {
-                int distance = 0;
-                foreach (Commit parent in leftParents)
-                {
-                    if (parent == taggedCommit)
-                    {
-                        result.Add(parent, distance);
-                        break;
-                    }
-                    distance++;
-                }
-            }
-
-            return result;
         }
 
         private bool IsModified(Repository repository)
