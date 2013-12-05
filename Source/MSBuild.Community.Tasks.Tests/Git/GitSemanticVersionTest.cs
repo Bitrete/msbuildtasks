@@ -27,7 +27,7 @@ namespace MSBuild.Community.Tasks.Tests.Git
         {
             task.RepositoryPath = LastCommitTaggedRepository;
             Assert.IsTrue(task.Execute());
-            Assert.AreEqual("1.0.0", task.SemanticVersion);
+            Assert.AreEqual("1.0.0", task.Version);
             Assert.IsTrue(task.IsRelease);
         }
 
@@ -36,7 +36,7 @@ namespace MSBuild.Community.Tasks.Tests.Git
         {
             task.RepositoryPath = AlphaTagRepository;
             Assert.IsFalse(task.Execute());
-            Assert.AreEqual("", task.SemanticVersion);
+            Assert.AreEqual("", task.Version);
             Assert.IsFalse(task.IsRelease);
         }
 
@@ -46,7 +46,7 @@ namespace MSBuild.Community.Tasks.Tests.Git
             CheckoutBranch(TagOnBranchRepository, "branch");
             task.RepositoryPath = TagOnBranchRepository;
             Assert.IsTrue(task.Execute());
-            Assert.AreEqual("0.6.0", task.SemanticVersion);
+            Assert.AreEqual("0.6.0", task.Version);
             Assert.IsTrue(task.IsRelease);
         }
 
@@ -55,7 +55,7 @@ namespace MSBuild.Community.Tasks.Tests.Git
         {
             task.RepositoryPath = TagOnBranchRepository;
             Assert.IsTrue(task.Execute());
-            Assert.AreEqual("0.6.0", task.SemanticVersion);
+            Assert.AreEqual("0.6.0", task.Version);
             Assert.IsFalse(task.IsRelease);
         }
 
@@ -64,7 +64,7 @@ namespace MSBuild.Community.Tasks.Tests.Git
         {
             task.RepositoryPath = TagOnMasterRepository;
             Assert.IsTrue(task.Execute());
-            Assert.AreEqual("0.5.0", task.SemanticVersion);
+            Assert.AreEqual("0.5.0", task.Version);
             Assert.IsFalse(task.IsRelease);
         }
 
@@ -73,7 +73,7 @@ namespace MSBuild.Community.Tasks.Tests.Git
         {
             task.RepositoryPath = EarlyTagRepository;
             Assert.IsTrue(task.Execute());
-            Assert.AreEqual("0.2.0", task.SemanticVersion);
+            Assert.AreEqual("0.2.0", task.Version);
             Assert.IsFalse(task.IsRelease);
         }
     }

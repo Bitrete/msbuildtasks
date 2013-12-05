@@ -63,7 +63,7 @@ namespace MSBuild.Community.Tasks.Git
         }
 
         /// <summary>
-        /// The most recent tag
+        /// The most recent tag name
         /// </summary>
         [Output]
         public string Tag { get; private set; }

@@ -4,7 +4,10 @@ using System.Linq;
 
 namespace MSBuild.Community.Tasks.Git
 {
-    class GitVersion : GitTask
+    /// <summary>
+    /// Task to get hash of current Git commit
+    /// </summary>
+    public class GitVersion : GitTask
     {
         /// <summary>
         /// Creates new instance of GitVersion task with default settings
@@ -31,6 +34,11 @@ namespace MSBuild.Community.Tasks.Git
         [Output]
         public string CommitHash { get; private set; }
 
+        /// <summary>
+        /// Method to execute task logic
+        /// </summary>
+        /// <param name="repository"></param>
+        /// <returns></returns>
         protected override bool ExecuteCommand(Repository repository)
         {
             var commit = GetCommit(repository, PredecessorOffset);
