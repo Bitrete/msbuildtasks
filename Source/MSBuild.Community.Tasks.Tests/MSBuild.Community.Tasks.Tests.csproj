@@ -74,14 +74,11 @@
     <Compile Include="Fusion\FusionWrapperTest.cs" />
     <Compile Include="FxCopTest.cs" />
     <Compile Include="GacUtilTest.cs" />
-    <Compile Include="Git2\GitBranchTest.cs" />
-    <Compile Include="Git2\GitDescribeTest.cs" />
-    <Compile Include="Git2\GitSemanticVersionTest.cs" />
-    <Compile Include="Git2\GitTestBase.cs" />
-    <Compile Include="Git2\GitVersionTest.cs" />
     <Compile Include="Git\GitBranchTest.cs" />
+    <Compile Include="Git\GitDescribeTest.cs" />
+    <Compile Include="Git\GitSemanticVersionTest.cs" />
+    <Compile Include="Git\GitTestBase.cs" />
     <Compile Include="Git\GitVersionTest.cs" />
-    <Compile Include="Git\SemanticVersionGitDescribeExtractorTest.cs" />
     <Compile Include="IIS\WebDirectoryScriptMapTest.cs" />
     <Compile Include="IIS\WebDirectorySettingTest.cs" />
     <Compile Include="ILMerge\ILMergeTest.cs" />

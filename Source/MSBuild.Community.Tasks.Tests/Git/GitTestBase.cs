@@ -5,7 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 
-namespace MSBuild.Community.Tasks.Tests.Git2
+namespace MSBuild.Community.Tasks.Tests.Git
 {
     public abstract class GitTestBase
     {
@@ -99,6 +99,7 @@ namespace MSBuild.Community.Tasks.Tests.Git2
 
         private void DeleteDirectory(string directoryPath)
         {
+            // From libgit2/libgit2sharp tests
             // From http://stackoverflow.com/questions/329355/cannot-delete-directory-with-directory-deletepath-true/329502#329502
 
             if (!Directory.Exists(directoryPath))

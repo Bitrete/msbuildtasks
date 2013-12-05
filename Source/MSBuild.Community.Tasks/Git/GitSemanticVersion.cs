@@ -1,11 +1,7 @@
 ﻿using Microsoft.Build.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 
-namespace MSBuild.Community.Tasks.Git2
+namespace MSBuild.Community.Tasks.Git
 {
     class GitSemanticVersion : GitDescribe
     {
@@ -13,7 +9,8 @@ namespace MSBuild.Community.Tasks.Git2
 
         private static readonly Regex VersionRegex = new Regex(VersionRegexString);
 
-        public GitSemanticVersion() : base()
+        public GitSemanticVersion()
+            : base()
         {
             SemanticVersion = string.Empty;
             IsRelease = false;

@@ -1,14 +1,10 @@
-﻿using MSBuild.Community.Tasks.Git2;
+﻿using MSBuild.Community.Tasks.Git;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-namespace MSBuild.Community.Tasks.Tests.Git2
+namespace MSBuild.Community.Tasks.Tests.Git
 {
     [TestFixture]
-    public class GitDescribeTest :GitTestBase
+    public class GitDescribeTest : GitTestBase
     {
         private GitDescribe task;
 

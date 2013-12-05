@@ -1,103 +1,48 @@
-﻿#region Copyright © 2012 Paul Welter. All rights reserved.
-/*
-Copyright © 2012 Paul Welter. All rights reserved.
-
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions
-are met:
-
-1. Redistributions of source code must retain the above copyright
-   notice, this list of conditions and the following disclaimer.
-2. Redistributions in binary form must reproduce the above copyright
-   notice, this list of conditions and the following disclaimer in the
-   documentation and/or other materials provided with the distribution.
-3. The name of the author may not be used to endorse or promote products
-   derived from this software without specific prior written permission.
-
-THIS SOFTWARE IS PROVIDED BY THE AUTHOR "AS IS" AND ANY EXPRESS OR
-IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
-OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
-IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT,
-INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
-NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
-THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
-*/
-#endregion
-
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using LibGit2Sharp;
 using Microsoft.Build.Framework;
-using Microsoft.Build.Utilities;
+using System.Linq;
 
 namespace MSBuild.Community.Tasks.Git
 {
-    /// <summary>
-    /// A task for git to get the current commit hash.
-    /// </summary>
-    public class GitVersion : GitClient
+    class GitVersion : GitTask
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="GitVersion"/> class.
+        /// Creates new instance of GitVersion task with default settings
         /// </summary>
         public GitVersion()
         {
-            Command = "rev-parse";
+            PredecessorOffset = 0;
             Short = true;
-            Revision = "HEAD";                    
         }
 
         /// <summary>
-        /// Gets or sets the revision to get the version from. Default is HEAD.
+        /// Number of steps to go backward in commit predescessors history
         /// </summary>
-        public string Revision { get; set; }
+        public int PredecessorOffset { get; set; }
 
         /// <summary>
-        /// Gets or sets the commit hash.
+        /// Optrion to output commit hash in short form
         /// </summary>
-        [Output]
-        public string CommitHash { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether to abbreviate to a shorter unique name.
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if short; otherwise, <c>false</c>.
-        /// </value>
         public bool Short { get; set; }
 
         /// <summary>
-        /// Generates the arguments.
+        /// Hash of selected commit (current by default or PredecessorOffset back in history)
         /// </summary>
-        /// <param name="builder">The builder.</param>
-        protected override void GenerateArguments(CommandLineBuilder builder)
+        [Output]
+        public string CommitHash { get; private set; }
+
+        protected override bool ExecuteCommand(Repository repository)
         {
-            builder.AppendSwitch("--verify");
+            var commit = GetCommit(repository, PredecessorOffset);
 
-            if (Short)
-                builder.AppendSwitch("--short");
+            CommitHash = Short ? commit.Sha.Substring(0, 7) : commit.Sha;
 
-            base.GenerateArguments(builder);
-
-            builder.AppendSwitch(Revision);
+            return true;
         }
 
-        /// <summary>
-        /// Parses a single line of text to identify any errors or warnings in canonical format.
-        /// </summary>
-        /// <param name="singleLine">A single line of text for the method to parse.</param>
-        /// <param name="messageImportance">A value of <see cref="T:Microsoft.Build.Framework.MessageImportance"/> that indicates the importance level with which to log the message.</param>
-        protected override void LogEventsFromTextOutput(string singleLine, MessageImportance messageImportance)
+        private Commit GetCommit(Repository repository, int offset)
         {
-            bool isError = messageImportance == StandardErrorLoggingImportance;
-
-            if (isError)
-                base.LogEventsFromTextOutput(singleLine, messageImportance);
-            else
-                CommitHash = singleLine.Trim();
+            return repository.Commits.Skip(offset).First();
         }
     }
 }

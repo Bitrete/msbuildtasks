@@ -1,7 +1,7 @@
 ﻿using LibGit2Sharp;
 using Microsoft.Build.Utilities;
 
-namespace MSBuild.Community.Tasks.Git2
+namespace MSBuild.Community.Tasks.Git
 {
     /// <summary>
     /// Base class for Git tasks

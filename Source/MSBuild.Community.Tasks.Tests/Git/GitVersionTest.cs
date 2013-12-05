@@ -1,31 +1,81 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
-using MSBuild.Community.Tasks.Git;
+﻿using MSBuild.Community.Tasks.Git;
 using NUnit.Framework;
 
 namespace MSBuild.Community.Tasks.Tests.Git
 {
     [TestFixture]
-    public class GitVersionTest
+    class GitVersionTest : GitTestBase
     {
-        [Test]
-        public void Execute()
+        private GitVersion task;
+
+        [SetUp]
+        public new void SetUp()
         {
-            GitVersion task = new GitVersion();
+            base.SetUp();
+
+            task = new GitVersion();
             task.BuildEngine = new MockBuild();
-            task.ToolPath = @"C:\Program Files (x86)\Git\bin";
-
-            string prjRootPath = TaskUtility.GetProjectRootDirectory(true);
-            task.LocalPath = Path.Combine(prjRootPath, @"Source");
-
-            bool result = task.Execute();
-
-            Assert.IsTrue(result, "Execute Failed");
-
-            Assert.IsFalse(string.IsNullOrEmpty(task.CommitHash), "Invalid Revision Number");
+            task.RepositoryPath = TagFreeRepository;
         }
 
+        [TearDown]
+        public new void TearDown()
+        {
+            base.TearDown();
+        }
+
+        [Test]
+        public void TestHead()
+        {
+            Assert.IsTrue(task.Execute());
+            Assert.AreEqual("77c95eb", task.CommitHash);
+        }
+
+        [Test]
+        public void TeshHeadLong()
+        {
+            task.Short = false;
+            Assert.IsTrue(task.Execute());
+            Assert.AreEqual("77c95ebb5565695348f674ee5fdd419af78807c9", task.CommitHash);
+        }
+
+        [Test]
+        public void TestFirstParent()
+        {
+            task.PredecessorOffset = 1;
+            Assert.IsTrue(task.Execute());
+            Assert.AreEqual("8c15410", task.CommitHash);
+        }
+
+        [Test]
+        public void TestFirstParentOfFirstParent()
+        {
+            task.PredecessorOffset = 2;
+            Assert.IsTrue(task.Execute());
+            Assert.AreEqual("d85c67b", task.CommitHash);
+        }
+
+        [Test]
+        public void TestSecondParentOfFirstParent()
+        {
+            task.PredecessorOffset = 3;
+            Assert.IsTrue(task.Execute());
+            Assert.AreEqual("86ccf0b", task.CommitHash);
+        }
+
+        [Test]
+        public void TestFirstParentOfGrandparent()
+        {
+            task.PredecessorOffset = 4;
+            Assert.IsTrue(task.Execute());
+            Assert.AreEqual("8a923cc", task.CommitHash);
+        }
+
+        [Test]
+        public void TestRepositoryFailure()
+        {
+            task.RepositoryPath = "bla-bla";
+            Assert.IsFalse(task.Execute());
+        }
     }
 }
