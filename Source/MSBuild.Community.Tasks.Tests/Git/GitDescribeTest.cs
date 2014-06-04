@@ -33,6 +33,7 @@ namespace MSBuild.Community.Tasks.Tests.Git
             Assert.AreEqual("77c95ebb5565695348f674ee5fdd419af78807c9", task.TaggedCommitHash);
             Assert.AreEqual(0, task.CommitCount);
             Assert.AreEqual("v1.0.0-0-g77c95eb", task.Description);
+            Assert.AreEqual(7,task.CommitCountFromBeginning);
         }
 
         [Test]
@@ -47,6 +48,7 @@ namespace MSBuild.Community.Tasks.Tests.Git
             Assert.AreEqual("77c95ebb5565695348f674ee5fdd419af78807c9", task.TaggedCommitHash);
             Assert.AreEqual(0, task.CommitCount);
             Assert.AreEqual("v1.0.0-0-g77c95eb-dev", task.Description);
+            Assert.AreEqual(7, task.CommitCountFromBeginning);
         }
 
         [Test]
@@ -60,6 +62,7 @@ namespace MSBuild.Community.Tasks.Tests.Git
             Assert.AreEqual("", task.TaggedCommitHash);
             Assert.AreEqual(0, task.CommitCount);
             Assert.AreEqual("77c95eb", task.Description);
+            Assert.AreEqual(7, task.CommitCountFromBeginning);
         }
 
         [Test]
@@ -73,6 +76,7 @@ namespace MSBuild.Community.Tasks.Tests.Git
             Assert.AreEqual("", task.TaggedCommitHash);
             Assert.AreEqual(0, task.CommitCount);
             Assert.AreEqual("77c95eb-dirty", task.Description);
+            Assert.AreEqual(7, task.CommitCountFromBeginning);
         }
 
         [Test]
@@ -86,6 +90,7 @@ namespace MSBuild.Community.Tasks.Tests.Git
             Assert.AreEqual("86ccf0b435176e1a1a939041b7dfe4824a7548e5", task.TaggedCommitHash);
             Assert.AreEqual(3, task.CommitCount);
             Assert.AreEqual("v0.5.0-3-g77c95eb", task.Description);
+            Assert.AreEqual(7, task.CommitCountFromBeginning);
         }
 
         [Test]
@@ -100,6 +105,7 @@ namespace MSBuild.Community.Tasks.Tests.Git
             Assert.AreEqual("d85c67bab517fcb53ed4ca84e3f68dc51482afe7", task.TaggedCommitHash);
             Assert.AreEqual(0, task.CommitCount);
             Assert.AreEqual("v0.6.0-0-gd85c67b", task.Description);
+            Assert.AreEqual(4, task.CommitCountFromBeginning);
         }
 
         [Test]
@@ -114,6 +120,7 @@ namespace MSBuild.Community.Tasks.Tests.Git
             Assert.AreEqual("d85c67bab517fcb53ed4ca84e3f68dc51482afe7", task.TaggedCommitHash);
             Assert.AreEqual(3, task.CommitCount);
             Assert.AreEqual("v0.6.0-3-g77c95eb", task.Description);
+            Assert.AreEqual(7, task.CommitCountFromBeginning);
         }
 
         [Test]
@@ -127,6 +134,7 @@ namespace MSBuild.Community.Tasks.Tests.Git
             Assert.AreEqual("25f17f14afde4a412756d65e1480374e6e46b285", task.TaggedCommitHash);
             Assert.AreEqual(5, task.CommitCount);
             Assert.AreEqual("v0.2.0-5-g77c95eb", task.Description);
+            // Assert.AreEqual(7, task.CommitCountFromBeginning);
         }
 
         [Test]
@@ -140,6 +148,7 @@ namespace MSBuild.Community.Tasks.Tests.Git
             Assert.AreEqual("8c1541031cf33ff80fc014a3b7b2b9d0ead42bf4", task.TaggedCommitHash);
             Assert.AreEqual(1, task.CommitCount);
             Assert.AreEqual("tag-1-g77c95eb", task.Description);
+            Assert.AreEqual(7, task.CommitCountFromBeginning);
         }
     }
 }
