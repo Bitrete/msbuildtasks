@@ -39,6 +39,12 @@ namespace MSBuild.Community.Tasks.Git
         public int CommitCount { get; private set; }
 
         /// <summary>
+        /// Commit count from beginning
+        /// </summary>
+        [Output]
+        public int CommitCountFromBeginning { get; private set; }
+
+        /// <summary>
         /// Hash of the most recent tagged commit
         /// </summary>
         [Output]
@@ -92,6 +98,7 @@ namespace MSBuild.Community.Tasks.Git
                 throw new InvalidOperationException("Could not find HEAD commit"); //TODO: Select better exception class
 
             CommitHash = headCommit.Sha;
+            CommitCountFromBeginning = GetCommitsCountBetweenHeadAndCommit(repository, null);
             Dirty = IsModified(repository);
 
             if (repository.Tags.Count() > 0)
